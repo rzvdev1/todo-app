@@ -89,7 +89,7 @@ const Todo = () => {
         </label>
       </form>
 
-      {list.map((item) => (
+      {/* {list.map((item) => (
         <div key={item.id}>
           <p>{item.text}</p>
           <p>
@@ -103,7 +103,7 @@ const Todo = () => {
           </div>
           <hr />
         </div>
-      ))}
+      ))} */}
     </>
   );
 };
