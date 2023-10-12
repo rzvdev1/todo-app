@@ -2,7 +2,20 @@ import { SettingsContext } from '../../App';
 import { useContext } from 'react';
 
 export default function List() {
-  const { list } = useContext(SettingsContext);
+  const { list, setList } = useContext(SettingsContext);
+
+  function toggleComplete(id) {
+    const items = list.map((item) => {
+      if (item.id === id) {
+        item.complete = !item.complete;
+      }
+      return item;
+    });
+
+    // setList(items);
+    setList([...items]);
+  }
+
   return (
     <>
       {list.map((item) => (
@@ -14,8 +27,8 @@ export default function List() {
           <p>
             <small>Difficulty: {item.difficulty}</small>
           </p>
-          {/* <div onClick={() => toggleComplete(item.id)}> */}
-          <div onClick={() => console.log('click')}>
+          <div onClick={() => toggleComplete(item.id)}>
+            {/* <div onClick={() => console.log('click')}> */}
             Complete: {item.complete.toString()}
           </div>
           <hr />

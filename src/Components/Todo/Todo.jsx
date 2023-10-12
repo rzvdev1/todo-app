@@ -23,16 +23,16 @@ const Todo = () => {
     setList(items);
   }
 
-  function toggleComplete(id) {
-    const items = list.map((item) => {
-      if (item.id === id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
+  // function toggleComplete(id) {
+  //   const items = list.map((item) => {
+  //     if (item.id === id) {
+  //       item.complete = !item.complete;
+  //     }
+  //     return item;
+  //   });
 
-    setList(items);
-  }
+  //   setList(items);
+  // }
 
   useEffect(() => {
     let incompleteCount = list.filter((item) => !item.complete).length;
