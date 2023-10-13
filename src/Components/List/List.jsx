@@ -1,5 +1,5 @@
 import { SettingsContext } from '../../App';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export default function List() {
   const { list, setList } = useContext(SettingsContext);
@@ -15,6 +15,18 @@ export default function List() {
     // setList(items);
     setList([...items]);
   }
+
+  useEffect(() => {
+    setList([
+      {
+        id: 1,
+        text: 'Clean the Kitchen',
+        difficulty: 3,
+        assignee: 'Person A',
+        complete: false,
+      },
+    ]);
+  }, [setList]);
 
   return (
     <>
