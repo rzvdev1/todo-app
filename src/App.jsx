@@ -5,6 +5,9 @@ import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import List from './Components/List/List';
 import SettingsComp from './Context/Settings/SettingsComp';
+import Auth from './Components/Auth/Auth';
+import Login from './Components/Login/Login';
+import LoginContext from './Context/Auth/context';
 
 export const SettingsContext = createContext();
 
@@ -13,17 +16,22 @@ export default function App() {
   localStorage.setItem('list', JSON.stringify(list));
 
   return (
-    <SettingsContext.Provider value={{ list, setList, hideCompleted: false }}>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Todo />} />
-          <Route path='/settings' element={<SettingsComp />} />
-        </Routes>
+    <LoginContext>
+      <SettingsContext.Provider value={{ list, setList, hideCompleted: false }}>
+        <BrowserRouter>
+          <Login />
+          <Auth>
+            <Header />
+            <Routes>
+              <Route path='/' element={<Todo />} />
+              <Route path='/settings' element={<SettingsComp />} />
+            </Routes>
 
-        <List />
-        <Footer />
-      </BrowserRouter>
-    </SettingsContext.Provider>
+            <List />
+          </Auth>
+          <Footer />
+        </BrowserRouter>
+      </SettingsContext.Provider>
+    </LoginContext>
   );
 }
