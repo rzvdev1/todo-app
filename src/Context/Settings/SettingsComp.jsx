@@ -5,23 +5,60 @@ export default function SettingsComp() {
   const { list, setList, hideCompleted } = useContext(SettingsContext);
 
   useEffect(() => {
-    // use local storage to save the list of todos and the hideCompleted setting
-    // use the useEffect hook to save the list and hideCompleted setting to local storage whenever either of these values changes
+    const listFromLocalStorage = localStorage.getItem('list');
 
-    const list = localStorage.getItem('list');
-    const hideCompleted = localStorage.getItem('hideCompleted');
-    if (list) {
-      setList(JSON.parse(list));
+    if (listFromLocalStorage) {
+      setList(JSON.parse(listFromLocalStorage));
     }
-    if (hideCompleted) {
-      setList(JSON.parse(hideCompleted));
-    }
-  }, [list, hideCompleted]);
+  }, [setList]);
+
+  const handleHideCompletedChange = (e) => {
+    setList((prevList) => {
+      return { ...prevList, hideCompleted: e.target.checked };
+    });
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    const itemsPerPage = parseInt(e.target.value, 10);
+
+    setList((prevList) => {
+      return { ...prevList, itemsPerPage };
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    localStorage.setItem('list', JSON.stringify(list));
+
+    console.log('Settings submitted:', list);
+  };
 
   return (
-    <>
-      <h2> Settings Comp</h2>
-      <p>{list.length}</p>
-    </>
+    <form onSubmit={onSubmit}>
+      <label htmlFor='hideCompleted'>Hide completed</label>
+      <input
+        id='hideCompleted'
+        type='checkbox'
+        checked={hideCompleted}
+        onChange={handleHideCompletedChange}
+      />
+
+      <br />
+
+      <label htmlFor='itemsPerPage'>Items Per Page:</label>
+      <select
+        id='itemsPerPage'
+        value={list.itemsPerPage}
+        onChange={handleItemsPerPageChange}
+      >
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+      </select>
+
+      <button type='submit'>Submit</button>
+    </form>
   );
 }

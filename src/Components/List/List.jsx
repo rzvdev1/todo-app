@@ -30,22 +30,23 @@ export default function List() {
 
   return (
     <>
-      {list.map((item) => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p>
-            <small>Assigned to: {item.assignee}</small>
-          </p>
-          <p>
-            <small>Difficulty: {item.difficulty}</small>
-          </p>
-          <div onClick={() => toggleComplete(item.id)}>
-            {/* <div onClick={() => console.log('click')}> */}
-            Complete: {item.complete.toString()}
+      {Array.isArray(list) &&
+        list.map((item) => (
+          <div key={item.id}>
+            <p>{item.text}</p>
+            <p>
+              <small>Assigned to: {item.assignee}</small>
+            </p>
+            <p>
+              <small>Difficulty: {item.difficulty}</small>
+            </p>
+            <div onClick={() => toggleComplete(item.id)}>
+              {/* <div onClick={() => console.log('click')}> */}
+              Complete: {item.complete.toString()}
+            </div>
+            <hr />
           </div>
-          <hr />
-        </div>
-      ))}
+        ))}
       <CustomIcons />
     </>
   );
