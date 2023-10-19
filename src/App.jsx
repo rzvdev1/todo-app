@@ -10,6 +10,7 @@ export const SettingsContext = createContext();
 
 export default function App() {
   const [list, setList] = useState([]);
+  localStorage.setItem('list', JSON.stringify(list));
 
   return (
     <SettingsContext.Provider value={{ list, setList, hideCompleted: false }}>
